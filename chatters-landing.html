@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Buscamos Chatters OFM — Trabajo Remoto</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --tg-blue: #0088cc;
+    --tg-light: #5eb5f7;
+    --tg-lighter: #e8f4fd;
+    --tg-dark: #006699;
+    --ink: #1a2b3c;
+    --gray: #6b7c8f;
+    --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 20px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #5eb5f7 0%, #0088cc 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 54px 20px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 15% 20%, rgba(255,255,255,.15) 0 3px, transparent 3px),
+                      radial-gradient(circle at 80% 15%, rgba(255,255,255,.12) 0 4px, transparent 4px),
+                      radial-gradient(circle at 70% 80%, rgba(255,255,255,.1) 0 3px, transparent 3px);
+    pointer-events: none;
+  }
+  .plane { font-size: 34px; margin-bottom: 8px; display:block; }
+  .hero h1 {
+    font-size: 34px; font-weight: 800; letter-spacing: -0.5px;
+    line-height: 1.1; margin-bottom: 14px;
+  }
+  .hero h1 .chat-emoji { font-size: 30px; }
+  .hero p.sub {
+    font-size: 16px; opacity: .95; max-width: 420px; margin: 0 auto 26px;
+  }
+  .pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+  .pill {
+    background: rgba(255,255,255,.18); backdrop-filter: blur(6px);
+    padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .cta-btn {
+    display: inline-block; background: var(--white); color: var(--tg-blue);
+    font-weight: 800; font-size: 17px; padding: 16px 40px; border-radius: 40px;
+    text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    transition: transform .15s;
+  }
+  .cta-btn:active { transform: scale(.97); }
+
+  /* SECTIONS */
+  section { padding: 44px 0; }
+  .section-title {
+    font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 8px;
+    color: var(--ink); letter-spacing: -0.3px;
+  }
+  .section-sub { text-align:center; color: var(--gray); font-size: 15px; margin-bottom: 28px; }
+
+  /* CARDS */
+  .cards { display: grid; gap: 14px; }
+  .card {
+    background: var(--tg-lighter); border-radius: 18px; padding: 20px 22px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .card .emoji { font-size: 26px; flex-shrink: 0; line-height: 1; }
+  .card h3 { font-size: 16px; margin-bottom: 3px; }
+  .card p { font-size: 14px; color: var(--gray); }
+
+  /* HIGHLIGHT (comision) */
+  .highlight {
+    background: linear-gradient(135deg, #0088cc, #006699);
+    color: var(--white); border-radius: 22px; padding: 32px 26px; text-align: center;
+    margin: 0 0 6px;
+  }
+  .highlight .big { font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+  .highlight p { opacity: .95; font-size: 15px; }
+
+  /* CHAT MOCK */
+  .chat-demo {
+    background: var(--tg-lighter); border-radius: 22px; padding: 22px; margin-top: 6px;
+  }
+  .bubble {
+    max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 14px;
+    margin-bottom: 8px; line-height: 1.35;
+  }
+  .bubble.them { background: var(--white); color: var(--ink); border-bottom-left-radius: 4px; }
+  .bubble.me {
+    background: var(--tg-blue); color: var(--white); margin-left: auto;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* REQUISITOS list */
+  .req-list { list-style: none; }
+  .req-list li {
+    display: flex; gap: 10px; align-items: flex-start; padding: 9px 0;
+    font-size: 15px; border-bottom: 1px solid #eef4f9;
+  }
+  .req-list li:last-child { border-bottom: none; }
+  .req-list .check { color: var(--tg-blue); font-weight: 800; flex-shrink:0; }
+
+  /* FINAL CTA */
+  .final {
+    background: linear-gradient(160deg, #5eb5f7, #0088cc);
+    color: var(--white); text-align: center; padding: 50px 20px 56px;
+    border-radius: 28px 28px 0 0; margin-top: 30px;
+  }
+  .final h2 { font-size: 26px; font-weight: 800; margin-bottom: 10px; }
+  .final p { opacity: .95; margin-bottom: 26px; font-size: 15px; }
+  .note { font-size: 12px; color: var(--gray); text-align:center; padding: 24px 20px 40px; }
+
+  @media(min-width:600px){ .hero h1{ font-size:40px; } }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <span class="plane">✈️</span>
+      <h1>buscamos chatters OFM <span class="chat-emoji">💬</span></h1>
+      <p class="sub">si tenés labia, sos rápido escribiendo y sabés vender conversando, esto es para vos</p>
+      <div class="pills">
+        <span class="pill">💰 comisión</span>
+        <span class="pill">🏠 100% remoto</span>
+        <span class="pill">⏰ horarios flexibles</span>
+      </div>
+      <a href="#aplicar" class="cta-btn">quiero aplicar →</a>
+    </div>
+  </div>
+
+  <!-- QUE ES -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">de qué se trata</h2>
+      <p class="section-sub">ventas por chat para una agencia de creadoras de contenido para adultos</p>
+      <div class="cards">
+        <div class="card">
+          <span class="emoji">💬</span>
+          <div>
+            <h3>tu trabajo es conversar y vender</h3>
+            <p>chateás con clientes por telegram, generás confianza y cerrás ventas de contenido. nada de llamadas, todo por texto.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="emoji">📱</span>
+          <div>
+            <h3>desde tu celular o compu</h3>
+            <p>trabajás desde donde quieras, sin jefe encima. solo necesitás internet y ganas de vender.</p>
+          </div>
+        </div>
+        <div class="card">
+          <span class="emoji">🔥</span>
+          <div>
+            <h3>mientras más vendés, más ganás</h3>
+            <p>no hay techo. los buenos closers hacen muy buena plata porque cobran sobre cada venta que cierran.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMISION HIGHLIGHT -->
+  <section style="padding-top:10px;">
+    <div class="wrap">
+      <div class="highlight">
+        <div class="big">10%</div>
+        <p>de comisión sobre cada venta que cerrás. sin límite de ganancia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAT DEMO -->
+  <section style="padding-top:20px;">
+    <div class="wrap">
+      <h2 class="section-title">así es el laburo</h2>
+      <p class="section-sub">tu habilidad para escribir es lo que hace la diferencia</p>
+      <div class="chat-demo">
+        <div class="bubble them">hola, vi tu contenido 👀</div>
+        <div class="bubble me">holaa, me alegra que me escribas 🙈 de dónde sos?</div>
+        <div class="bubble them">de buenos aires jaja. me encantás</div>
+        <div class="bubble me">jaja pará que me sonrojo… tengo algo que te va a encantar 😏</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REQUISITOS -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">qué buscamos</h2>
+      <p class="section-sub">no hace falta título, hace falta actitud</p>
+      <ul class="req-list">
+        <li><span class="check">✓</span> mayor de 18 años</li>
+        <li><span class="check">✓</span> escribís rápido, natural y con buena onda</li>
+        <li><span class="check">✓</span> te sentís cómodo/a vendiendo contenido para adultos</li>
+        <li><span class="check">✓</span> tenés disponibilidad horaria (mejor si es de noche)</li>
+        <li><span class="check">✓</span> internet estable y ganas de ganar plata</li>
+        <li><span class="check">✓</span> experiencia previa en chatting suma, pero no es excluyente</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <div class="final" id="aplicar">
+    <div class="wrap">
+      <h2>listo para arrancar? 💙</h2>
+      <p>completá el formulario, miramos cómo escribís y te contactamos</p>
+      <!-- CAMBIAR EL HREF POR EL LINK DEL GOOGLE FORM -->
+      <a href="#" class="cta-btn" id="formBtn">completar formulario →</a>
+    </div>
+  </div>
+
+  <p class="note">
+    Solo mayores de 18 años · Pago por comisión sobre ventas · Trabajo remoto independiente
+  </p>
+
+</body>
+</html>
